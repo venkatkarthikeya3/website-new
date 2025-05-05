@@ -1,56 +1,131 @@
 import Link from "next/link"
+
 import { Github, Mail, Linkedin } from "lucide-react"
 
 import { ProjectCarousel } from "@/components/project-carousel"
 import { Button } from "@/components/ui/button"
+import { Description } from "@radix-ui/react-toast"
+import 'react-photo-view/dist/react-photo-view.css';
 
 export default function Home() {
+  function getGreeting() {
+    const hour = new Date().getHours();
+    if (hour < 12) return "Good morning";
+    if (hour < 18) return "Good afternoon";
+    return "Good evening";
+  }
+
   // Sample project data - replace with your own
   const projects = [
     {
       id: 1,
-      title: "E-Commerce Platform",
+      title: "Snail Runner",
       description:
-        "A full-stack e-commerce solution with payment integration, user authentication, and inventory management.",
-      technologies: ["React", "Node.js", "MongoDB", "Stripe"],
+        "A 2d mobile game where players control a snail to navigate through a maze of pipes.",
+      technologies: ["Cocos-2d js", "iOS", "Android"],
       images: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
+        { src: "/snail1.JPEG", description: "Snail Runner - Main Screen" },
+        { src: "/snail2.jpeg", description: "Snail Runner - Gameplay" },
+        { src: "/snail3.jpeg", description: "Snail Runner - Level Design" },
+        { src: "/snail4.png", description: "Snail Runner - Bonus Level" },
+        { src: "/snail5.png", description: "Snail Runner - Victory Screen" },
       ],
     },
     {
       id: 2,
-      title: "Task Management App",
-      description: "A responsive task management application with drag-and-drop functionality and real-time updates.",
-      technologies: ["React Native", "Firebase", "Redux"],
+      title: "MRS Interactive Interview",
+      description:
+        "A responsive web application for managing underwriting of insurance cases.",
+      technologies: ["Angular", "Socket IO", "RxJs"],
       images: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
+        { src: "/mrs1.png", description: "MRS - Dashboard Overview" },
+        { src: "/mrs2.jpg", description: "MRS - Case Management Interface" },
+        { src: "/mrs3.jpg", description: "MRS - User Settings" },
       ],
     },
     {
       id: 3,
-      title: "Healthcare Dashboard",
+      title: "Agent and Customer App",
       description:
-        "An interactive dashboard for healthcare professionals to monitor patient data and schedule appointments.",
-      technologies: ["Vue.js", "Express", "PostgreSQL", "D3.js"],
+        "An app for agents on the field to manage their insurance cases.",
+      technologies: ["React Native", "iOS"],
       images: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
+        { src: "/agent app.jpg", description: "Agent App - Home Screen" },
       ],
     },
     {
       id: 4,
-      title: "Social Media Analytics Tool",
-      description: "A tool for tracking and analyzing social media engagement across multiple platforms.",
-      technologies: ["React", "Python", "Django", "Chart.js"],
+      title: "Time Tracker App",
+      description:
+        "An app for logging time spent on different tasks and projects.",
+      technologies: ["Ionic", "Angular", ".Net", "iOS", "Android"],
       images: [
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
-        "/placeholder.svg?height=600&width=800",
+        { src: "/timetracker1.jpg", description: "Time Tracker - Weekly Overview" },
+        { src: "/timetracker2.jpg", description: "Time Tracker - Task Details" },
+        { src: "/timetracker3.jpg", description: "Time Tracker - Reports" },
+        { src: "/timetracker4.jpg", description: "Time Tracker - Calendar View" },
+      ],
+    },
+    {
+      id: 5,
+      title: "Sales Tracker App",
+      description:
+        "An app for members of the Group Purchasing Organization to track their sales.",
+      technologies: ["React", "Next.js", "Shadcn"],
+      images: [
+        { src: "/salestracker1.png", description: "Sales Tracker - Dashboard" },
+        { src: "/salestracker2.png", description: "Sales Tracker - Analytics" },
+        { src: "/salestracker3.png", description: "Sales Tracker - Reports" },
+      ],
+    },
+    {
+      id: 6,
+      title: "PromSocial",
+      description:
+        "A social networking app for prom-going students to connect and share their experiences and purchase prom-related products.",
+      technologies: [
+        "Ionic",
+        "Angular",
+        "Laravel",
+        "MySQL",
+        "Firebase",
+        "iOS",
+        "Android",
+      ],
+      images: [
+        { src: "/app1.png", description: "PromSocial - Feed" },
+        { src: "/app2.png", description: "PromSocial - Profile" },
+        { src: "/app3.png", description: "PromSocial - Chat" },
+        { src: "/app4.png", description: "PromSocial - Notifications" },
+        { src: "/app5.png", description: "PromSocial - Settings" },
+        { src: "/app6.png", description: "PromSocial - Friends List" },
+        { src: "/app8.png", description: "PromSocial - Events" },
+        { src: "/app9.png", description: "PromSocial - Messages" },
+        { src: "/app11.png", description: "PromSocial - Groups" },
+        { src: "/app12.png", description: "PromSocial - Photos" },
+        { src: "/app13.png", description: "PromSocial - Videos" },
+        { src: "/app14.png", description: "PromSocial - Marketplace" },
+        { src: "/app15.png", description: "PromSocial - Prom Planning" },
+        { src: "/app17.png", description: "PromSocial - Invitations" },
+        { src: "/app18.png", description: "PromSocial - Prom Night" },
+        { src: "/app19.png", description: "PromSocial - Memories" },
+        { src: "/app20.png", description: "PromSocial - Reviews" },
+        { src: "/app21.png", description: "PromSocial - Settings" },
+      ],
+    },
+    {
+      id: 7,
+      title: "PromSocial Website",
+      description:
+        "A website to promote the PromSocial app and provide information about its features and benefits. Also includes onboarding of stores and their merchandise.",
+      technologies: ["Angular", "Stripe", "Laravel"],
+      images: [
+        { src: "/web1.png", description: "PromSocial Website - Homepage" },
+        { src: "/web2.png", description: "PromSocial Website - Store Onboarding" },
+        { src: "/web3.png", description: "PromSocial Website - Features" },
+        { src: "/web4.png", description: "PromSocial Website - Pricing" },
+        { src: "/web6.png", description: "PromSocial Website - Testimonials" },
+        { src: "/web8.png", description: "PromSocial Website - Contact Us" },
       ],
     },
   ]
@@ -60,25 +135,30 @@ export default function Home() {
       <header className="sticky top-0 z-40 w-full border-b bg-background">
         <div className="container flex h-16 items-center space-x-4 sm:justify-between sm:space-x-0">
           <div className="flex gap-6 md:gap-10">
-            <Link href="/" className="flex items-center space-x-2">
-              <span className="inline-block font-bold">My Portfolio</span>
+            <Link href="/" className="flex flex-col items-start">
+              <span className="inline-block font-bold text-lg sm:text-xl md:text-2xl lg:text-3xl">
+                Venkata Karthikeya
+              </span>
+              <span className="text-sm sm:text-base md:text-lg text-muted-foreground">
+                Web & App Developer
+              </span>
             </Link>
           </div>
           <div className="flex flex-1 items-center justify-end space-x-4">
             <nav className="flex items-center space-x-2">
-              <Link href="https://github.com" target="_blank" rel="noreferrer">
+              <Link href="https://github.com/venkatkarthikeya3" target="_blank" rel="noreferrer">
                 <Button variant="ghost" size="icon">
                   <Github className="h-5 w-5" />
                   <span className="sr-only">GitHub</span>
                 </Button>
               </Link>
-              <Link href="https://linkedin.com" target="_blank" rel="noreferrer">
+              <Link href="https://www.linkedin.com/in/venkatkarthikeya/" target="_blank" rel="noreferrer">
                 <Button variant="ghost" size="icon">
                   <Linkedin className="h-5 w-5" />
                   <span className="sr-only">LinkedIn</span>
                 </Button>
               </Link>
-              <Link href="mailto:your-email@example.com">
+              <Link href="mailto:venkatkarthikeya3@gmail.com">
                 <Button variant="ghost" size="icon">
                   <Mail className="h-5 w-5" />
                   <span className="sr-only">Email</span>
@@ -91,15 +171,17 @@ export default function Home() {
       <main className="flex-1">
         <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
           <div className="flex max-w-[980px] flex-col items-start gap-2">
-            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">Hi, I'm [Your Name]</h1>
+            <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
+              {getGreeting()}! My name is Karthikeya
+            </h1>
             <p className="max-w-[700px] text-lg text-muted-foreground">
-              I'm a passionate web and app developer with expertise in creating responsive, user-friendly applications.
-              I specialize in modern JavaScript frameworks, mobile app development, and building scalable backend
-              solutions.
+              I'm a passionate developer who loves crafting web and mobile applications that solve real-world problems. 
+              With 9+ years of experience, I've worked on everything from social networking platforms to e-commerce solutions. 
+              Let's build something amazing together!
             </p>
           </div>
           <div className="flex gap-4">
-            <Link href="mailto:your-email@example.com">
+            <Link href="mailto:venkatkarthikeya3@gmail.com">
               <Button>Contact Me</Button>
             </Link>
             <Link href="/resume.pdf" target="_blank">
@@ -138,11 +220,11 @@ export default function Home() {
       <footer className="border-t py-6 md:py-0">
         <div className="container flex flex-col items-center justify-between gap-4 md:h-16 md:flex-row">
           <p className="text-center text-sm leading-loose text-muted-foreground md:text-left">
-            © {new Date().getFullYear()} [Your Name]. All rights reserved.
+            © {new Date().getFullYear()} Venkata Karthikeya. All rights reserved.
           </p>
           <div className="flex items-center gap-4">
             <Link
-              href="https://github.com"
+              href="https://github.com/venkatkarthikeya3"
               target="_blank"
               rel="noreferrer"
               className="text-sm text-muted-foreground underline underline-offset-4"
@@ -150,7 +232,7 @@ export default function Home() {
               GitHub
             </Link>
             <Link
-              href="https://linkedin.com"
+              href="https://www.linkedin.com/in/venkatkarthikeya/"
               target="_blank"
               rel="noreferrer"
               className="text-sm text-muted-foreground underline underline-offset-4"
