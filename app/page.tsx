@@ -1,4 +1,5 @@
 import Link from "next/link"
+import { useState, useEffect } from "react";
 
 import { Github, Mail, Linkedin } from "lucide-react"
 
@@ -8,76 +9,10 @@ import { Description } from "@radix-ui/react-toast"
 import 'react-photo-view/dist/react-photo-view.css';
 
 export default function Home() {
-  function getGreeting() {
-    const hour = new Date().getHours();
-    if (hour < 12) return "Good morning";
-    if (hour < 18) return "Good afternoon";
-    return "Good evening";
-  }
+  
 
   // Sample project data - replace with your own
   const projects = [
-    {
-      id: 1,
-      title: "Snail Runner",
-      description:
-        "A 2d mobile game where players control a snail to navigate through a maze of pipes.",
-      technologies: ["Cocos-2d js", "iOS", "Android"],
-      images: [
-        { src: "/snail1.JPEG", description: "Snail Runner - Main Screen" },
-        { src: "/snail2.jpeg", description: "Snail Runner - Gameplay" },
-        { src: "/snail3.jpeg", description: "Snail Runner - Level Design" },
-        { src: "/snail4.png", description: "Snail Runner - Bonus Level" },
-        { src: "/snail5.png", description: "Snail Runner - Victory Screen" },
-      ],
-    },
-    {
-      id: 2,
-      title: "MRS Interactive Interview",
-      description:
-        "A responsive web application for managing underwriting of insurance cases.",
-      technologies: ["Angular", "Socket IO", "RxJs"],
-      images: [
-        { src: "/mrs1.png", description: "MRS - Dashboard Overview" },
-        { src: "/mrs2.jpg", description: "MRS - Case Management Interface" },
-        { src: "/mrs3.jpg", description: "MRS - User Settings" },
-      ],
-    },
-    {
-      id: 3,
-      title: "Agent and Customer App",
-      description:
-        "An app for agents on the field to manage their insurance cases.",
-      technologies: ["React Native", "iOS"],
-      images: [
-        { src: "/agent app.jpg", description: "Agent App - Home Screen" },
-      ],
-    },
-    {
-      id: 4,
-      title: "Time Tracker App",
-      description:
-        "An app for logging time spent on different tasks and projects.",
-      technologies: ["Ionic", "Angular", ".Net", "iOS", "Android"],
-      images: [
-        { src: "/timetracker1.jpg", description: "Time Tracker - Weekly Overview" },
-        { src: "/timetracker2.jpg", description: "Time Tracker - Task Details" },
-        { src: "/timetracker3.jpg", description: "Time Tracker - Reports" },
-        { src: "/timetracker4.jpg", description: "Time Tracker - Calendar View" },
-      ],
-    },
-    {
-      id: 5,
-      title: "Sales Tracker App",
-      description:
-        "An app for members of the Group Purchasing Organization to track their sales.",
-      technologies: ["React", "Next.js", "Shadcn"],
-      images: [
-        { src: "/salestracker1.png", description: "Sales Tracker - Dashboard" },
-        { src: "/salestracker2.png", description: "Sales Tracker - Analytics" },
-        { src: "/salestracker3.png", description: "Sales Tracker - Reports" },
-      ],
-    },
     {
       id: 6,
       title: "PromSocial",
@@ -93,24 +28,29 @@ export default function Home() {
         "Android",
       ],
       images: [
-        { src: "/app1.png", description: "PromSocial - Feed" },
-        { src: "/app2.png", description: "PromSocial - Profile" },
-        { src: "/app3.png", description: "PromSocial - Chat" },
-        { src: "/app4.png", description: "PromSocial - Notifications" },
-        { src: "/app5.png", description: "PromSocial - Settings" },
-        { src: "/app6.png", description: "PromSocial - Friends List" },
-        { src: "/app8.png", description: "PromSocial - Events" },
-        { src: "/app9.png", description: "PromSocial - Messages" },
-        { src: "/app11.png", description: "PromSocial - Groups" },
-        { src: "/app12.png", description: "PromSocial - Photos" },
-        { src: "/app13.png", description: "PromSocial - Videos" },
-        { src: "/app14.png", description: "PromSocial - Marketplace" },
-        { src: "/app15.png", description: "PromSocial - Prom Planning" },
-        { src: "/app17.png", description: "PromSocial - Invitations" },
-        { src: "/app18.png", description: "PromSocial - Prom Night" },
-        { src: "/app19.png", description: "PromSocial - Memories" },
-        { src: "/app20.png", description: "PromSocial - Reviews" },
-        { src: "/app21.png", description: "PromSocial - Settings" },
+        { src: "/promapp17.png", description: "Landing page" },
+        { src: "/app1.png", description: "News Feed" },
+        { src: "/app3.png", description: "News Feed 2" },
+        { src: "/promapp1.png", description: "Prom Organize Page" },
+        { src: "/app13.png", description: "Tinder Style Find Date." },
+        { src: "/app14.png", description: "Promposal" },
+        { src: "/app15.png", description: "Limo Party" },
+        { src: "/app17.png", description: "Group Chats" },
+        { src: "/app18.png", description: "OutFits" },
+        { src: "/app19.png", description: "Voting" },
+        { src: "/app12.png", description: "News Article" },
+        { src: "/app11.png", description: "Market Directory Search" },
+        { src: "/app20.png", description: "Photos" },
+        { src: "/app21.png", description: "Prombook" },
+        { src: "/app4.png", description: "Share Page" },
+        { src: "/app5.png", description: "News Article Post" },
+        { src: "/app6.png", description: "Share to Friends" },
+        { src: "/app8.png", description: "Messages" },
+        { src: "/app9.png", description: "User Saved Content" },
+        { src: "/promapp4.png", description: "Map view" },
+        { src: "/promapp5.png", description: "Store view" },
+        { src: "/promapp6.png", description: "Store" },
+        { src: "/promapp7.png", description: "Store reviews and comments" },
       ],
     },
     {
@@ -120,12 +60,81 @@ export default function Home() {
         "A website to promote the PromSocial app and provide information about its features and benefits. Also includes onboarding of stores and their merchandise.",
       technologies: ["Angular", "Stripe", "Laravel"],
       images: [
-        { src: "/web1.png", description: "PromSocial Website - Homepage" },
-        { src: "/web2.png", description: "PromSocial Website - Store Onboarding" },
-        { src: "/web3.png", description: "PromSocial Website - Features" },
-        { src: "/web4.png", description: "PromSocial Website - Pricing" },
-        { src: "/web6.png", description: "PromSocial Website - Testimonials" },
-        { src: "/web8.png", description: "PromSocial Website - Contact Us" },
+        { src: "/web1.png", description: "Landing page" },
+        { src: "/web2.png", description: "Landing page 2" },
+        { src: "/web3.png", description: "Stores" },
+        { src: "/web4.png", description: "Store onboarding" },
+        { src: "/web6.png", description: "Landing page 3" },
+        { src: "/web8.png", description: "Footer" },
+      ],
+    },
+    {
+      id: 1,
+      title: "Snail Runner",
+      description:
+        "A 2d mobile game where players control a snail to navigate through a maze of pipes.",
+      technologies: ["Cocos-2d js", "iOS", "Android"],
+      images: [
+      
+        { src: "/snail2.jpeg", description: "Snails store" },
+        { src: "/snail3.jpeg", description: "Snail Purchase" },
+        { src: "/snail4.png", description: "Snail Gameplay" },
+        { src: "/snail5.png", description: "Snail Gameplay" },
+        { src: "/snail6.png", description: "Snail Gameplay" },
+        { src: "/snail7.jpeg", description: "Snails store" },
+        { src: "/snail8.png", description: "Gameover screen" },
+        { src: "/snail1.JPEG", description: "No internet connection." },
+      ],
+    },
+    {
+      id: 5,
+      title: "Sales Tracker App",
+      description:
+        "An app for members of the Group Purchasing Organization to track their sales.",
+      technologies: ["React", "Next.js", "Shadcn"],
+      images: [
+        { src: "/salestracker1.png", description: "Sales Dashboard" },
+        { src: "/salestracker2.png", description: "Changes in metric shown as graph" },
+        { src: "/salestracker3.png", description: "Changes in metric shown as graph" },
+        { src: "/salestracker4.png", description: "Updating each single metric with date." },
+        { src: "/salestracker5.png", description: "Exporting metric data" },
+      ],
+    },
+    {
+      id: 2,
+      title: "MRS Interactive Interview",
+      description:
+        "A responsive web application for managing underwriting of insurance cases.",
+      technologies: ["Angular", "Socket IO", "RxJs"],
+      images: [
+        { src: "/mrs1.png", description: "Interview Page" },
+        { src: "/mrs2.jpg", description: "Client account configuration" },
+        { src: "/mrs3.jpg", description: "Clients" },
+      ],
+    },
+    {
+      id: 3,
+      title: "Agent and Customer App",
+      description:
+        "An app for agents on the field to manage their insurance cases.",
+      technologies: ["React Native", "iOS"],
+      images: [
+        { src: "/agent app.jpg", description: "Dashboard for Agents." },
+      ],
+    },
+    {
+      id: 4,
+      title: "Time Tracker App",
+      description:
+        "An app for logging time spent on different tasks and projects.",
+      technologies: ["Ionic", "Angular", ".Net", "iOS", "Android"],
+      images: [
+        { src: "/timetracker7.png", description: "Time Tracker Dashboard" },
+        { src: "/timetracker2.jpg", description: "Adding Tasks" },
+        { src: "/timetracker3.jpg", description: "Adding time for tasks" },
+        { src: "/timetracker4.jpg", description: "Tasks List" },
+        { src: "/timetracker5.png", description: "Tasks list 2" },
+        { src: "/timetracker6.png", description: "Calender view" },
       ],
     },
   ]
@@ -172,7 +181,7 @@ export default function Home() {
         <section className="container grid items-center gap-6 pb-8 pt-6 md:py-10">
           <div className="flex max-w-[980px] flex-col items-start gap-2">
             <h1 className="text-3xl font-extrabold leading-tight tracking-tighter md:text-4xl">
-              {getGreeting()}! My name is Karthikeya
+              Hi there, I am Karthikeya
             </h1>
             <p className="max-w-[700px] text-lg text-muted-foreground">
               I'm a passionate developer who loves crafting web and mobile applications that solve real-world problems. 
@@ -243,5 +252,5 @@ export default function Home() {
         </div>
       </footer>
     </div>
-  )
+  );
 }
