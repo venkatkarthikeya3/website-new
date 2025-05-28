@@ -129,10 +129,11 @@ export default function Home() {
         "An app for logging time spent on different tasks and projects.",
       technologies: ["Ionic", "Angular", ".Net", "iOS", "Android"],
       images: [
+        { src: "/timetracker4.jpg", description: "Tasks List" },
         { src: "/timetracker7.png", description: "Time Tracker Dashboard" },
         { src: "/timetracker2.jpg", description: "Adding Tasks" },
         { src: "/timetracker3.jpg", description: "Adding time for tasks" },
-        { src: "/timetracker4.jpg", description: "Tasks List" },
+      
         { src: "/timetracker5.png", description: "Tasks list 2" },
         { src: "/timetracker6.png", description: "Calender view" },
       ],
